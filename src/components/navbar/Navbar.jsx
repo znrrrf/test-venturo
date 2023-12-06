@@ -18,7 +18,7 @@ function Navbar() {
   }, [toggle]);
 
   return (
-    <div className="w-full h-[70px] bg-red-300 flex justify-between items-center px-[20px]">
+    <div className="w-full h-[70px]  flex justify-between items-center px-[20px]">
       <div className="flex h-full justify-center items-center gap-1 ">
         <HiCake className="text-secondary" />
         <h1>Main Curse</h1>

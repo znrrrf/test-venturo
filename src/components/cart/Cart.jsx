@@ -58,6 +58,8 @@ function Cart() {
       confirmButtonText: "Yes!",
     }).then((result) => {
       if (result.isConfirmed) {
+        dispatch(toggleNav(false));
+        dispatch(addState([]));
         Swal.fire({
           title: "Success!",
           text: "You success ordered.",
@@ -71,7 +73,6 @@ function Cart() {
     if (cart.length > 0) {
       if (promo === "hemat") {
         const totalHarga = cart.reduce((total, entry) => {
-          // Mengalikan harga dengan count sebelum ditambahkan ke total
           const subtotal = entry.data.harga * entry.count;
           return total + subtotal;
         }, 0);
@@ -84,7 +85,6 @@ function Cart() {
         console.log(totalHarga);
       } else if (promo === "puas") {
         const totalHarga = cart.reduce((total, entry) => {
-          // Mengalikan harga dengan count sebelum ditambahkan ke total
           const subtotal = entry.data.harga * entry.count;
           return total + subtotal;
         }, 0);
@@ -97,7 +97,6 @@ function Cart() {
         console.log(totalHarga);
       } else {
         const totalHarga = cart.reduce((total, entry) => {
-          // Mengalikan harga dengan count sebelum ditambahkan ke total
           const subtotal = entry.data.harga * entry.count;
           return total + subtotal;
         }, 0);
