@@ -109,14 +109,17 @@ function Cart() {
     <div
       className={`${toggle ? "block" : "hidden"}  absolute w-screen h-screen`}
     >
-      <div className="absolute bg-black opacity-50 w-screen h-screen z-40"></div>
-      <div className="absolute p-5 bg-white w-[400px] h-screen right-0 z-50 flex flex-col items-center justify-start">
+      <div
+        onClick={() => closeCart()}
+        className="absolute bg-black opacity-50 w-screen h-screen z-40"
+      ></div>
+      <div className="absolute p-5 bg-white w-screen md:w-[400px] h-screen right-0 z-50 flex flex-col items-center justify-start">
         <div className="w-full flex justify-between items-center  ">
           <div className="flex justify-center items-center gap-1 ">
             <HiCake className="text-secondary" />
             <h1>Main Curse</h1>
           </div>
-          <HiX onClick={() => closeCart()} />
+          <HiX onClick={() => closeCart()} className="cursor-pointer" />
         </div>
         <div className="w-full flex flex-col justify-start items-center  gap-5 h-[700px] overflow-y-scroll">
           {cart?.map((el, index) => (

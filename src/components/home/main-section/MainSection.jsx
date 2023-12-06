@@ -34,9 +34,9 @@ function MainSection() {
   }, [cart]);
 
   return (
-    <div className="w-full px-[10px]">
-      <div className="w-full justify-center items-start mt-[30px]">
-        <div className="grid grid-cols-1  md:grid-cols-2  xl:grid-cols-6 gap-[24px] ">
+    <div className="w-full px-[10px] flex justify-center  items-start">
+      <div className="w-fit flex justify-center items-start mt-[30px]">
+        <div className=" grid grid-cols-1  md:grid-cols-2  xl:grid-cols-6 gap-[24px] ">
           {menu?.map((el, index) => (
             <div
               key={index}
