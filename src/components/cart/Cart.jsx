@@ -3,10 +3,13 @@ import { HiArchive, HiCake, HiX } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import stateSlice, { addState, toggleNav } from "../../feature/stateSlice";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 function Cart() {
   const cart = useSelector((state) => state.stateSlice.value);
   const toggle = useSelector((state) => state.stateSlice.navbar);
+  const [catatan, setCatatan] = useState([]);
+  const [discount, setDiscount] = useState(0);
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   const [promo, setPromo] = useState("");
@@ -46,7 +49,7 @@ function Cart() {
     dispatch(addState(updatedArray));
   };
 
-  const checkout = () => {
+  const checkout = async () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -55,15 +58,33 @@ function Cart() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        dispatch(toggleNav(false));
-        dispatch(addState([]));
-        Swal.fire({
-          title: "Success!",
-          text: "You success ordered.",
-          icon: "success",
-        });
+        try {
+          const dis = discount.toString();
+          const tot = (total + discount).toString();
+          const response = await axios.post(
+            "https://tes-mobile.landa.id/api/order",
+            {
+              items: cart,
+              nominal_diskon: dis,
+              nominal_pesanan: tot,
+            }
+          );
+          console.log({
+            items: cart,
+            nominal_diskon: dis,
+            nominal_pesanan: tot,
+          });
+          setTotal(0);
+          dispatch(toggleNav(false));
+          dispatch(addState([]));
+          Swal.fire({
+            title: "Success!",
+            text: "You success ordered.",
+            icon: "success",
+          });
+        } catch (error) {}
       }
     });
   };
@@ -77,8 +98,10 @@ function Cart() {
         }, 0);
         if (totalHarga - 10000 > 0) {
           setTotal(totalHarga - 10000);
+          setDiscount(10000);
         } else {
           setTotal(0);
+          setDiscount(0);
         }
 
         console.log(totalHarga);
@@ -89,8 +112,10 @@ function Cart() {
         }, 0);
         if (totalHarga - 100000 > 0) {
           setTotal(totalHarga - 100000);
+          setDiscount(100000);
         } else {
           setTotal(0);
+          setDiscount(0);
         }
 
         console.log(totalHarga);
