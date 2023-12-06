@@ -41,7 +41,6 @@ function Cart() {
           count: entry.count + 1,
         };
       }
-      // Jika ID tidak cocok, kembalikan objek tanpa perubahan
       return entry;
     });
     dispatch(addState(updatedArray));
